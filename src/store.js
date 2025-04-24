@@ -1,0 +1,29 @@
+import { create } from 'zustand';
+
+export const useGameStore = create((set, get) => ({
+  mute: false,
+  player: null,
+  speed: 0,
+  score: 0,
+  level: 0,
+  lives: 2,
+  plays: 0,
+  addPlayer: (ref) => set({ player: ref }),
+  getPlayer: () => get().player,
+  setScore: (score) => set({ score }),
+  getScore: () => get().score,
+  setLevel: (level) => set({ level }),
+  getLevel: () => get().level,
+  setSpeed: (speed) => set({ speed }),
+  getSpeed: () => get().speed,
+  setLives: (lives) => set({ lives }),
+  getLives: () => get().lives,
+  toggleMute: () => set((state) => ({ mute: !state.mute })),
+  setMute: (mute) => set({ mute }),
+  getMute: () => get().mute,
+  setPlays: (plays) => set({ plays }),
+  getPlays: () => get().plays,
+}));
+
+export const getGameState = useGameStore.getState
+export const subscribe = useGameStore.subscribe
