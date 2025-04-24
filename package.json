@@ -5,11 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && ./zip.sh"
+    "build": "vite build && ./zip.sh",
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "4.3",
     "babel-plugin-glsl": "^1.0.0",
+    "gh-pages": "^6.3.0",
     "glslify": "^7.1.1",
     "vite": "^6.2.2",
     "vite-plugin-restart": "^0.4.2"

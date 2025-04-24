@@ -69,7 +69,6 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
 
   useEffect(() => {
     if (plays > 0) {
-      console.log('RESETTING TRESS');
       trees.current.forEach((tree) => {
         tree.pos = treePos;
       });
