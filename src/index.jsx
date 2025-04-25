@@ -28,8 +28,8 @@ import Game from './Game';
 
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
-console.log(`%c ${name} V:${version} ${window.location.port.length ? '[DEV]' : ''}`, 'background: #222; color: gold');
-console.log(`%c source code: https://github.com/eoinmcg/bumblebee`, 'background: #222; color: gold');
+console.log(`%c 🐝 ${name} V:${version} ${window.location.port.length ? '[DEV]' : ''}`, 'background: #222; color: gold');
+console.log(`%c 🐝source code: https://github.com/eoinmcg/bumblebee`, 'background: #222; color: gold');
 
 root.render(
   <StrictMode>
