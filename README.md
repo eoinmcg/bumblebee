@@ -18,9 +18,9 @@ You're a BumbleBee. Just trying to survive.
 
 ## Where To Play
 
-[Gamedev.js jam entry](https://eoinmcg.itch.io/bumblebee)
-[Latest version](https://eoinmcgrath.com/bumblebee)
-[Post-mortem](https://eoinmcgrath.com/gecko/post-mortem.html)
+- [Gamedev.js jam entry](https://eoinmcg.itch.io/bumblebee)
+- [Latest version](https://eoinmcgrath.com/bumblebee)
+- [Post-mortem](https://eoinmcgrath.com/gecko/post-mortem.html)
 
 ## Credits
 
