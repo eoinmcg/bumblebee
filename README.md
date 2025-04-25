@@ -10,6 +10,8 @@ Simple game made with [R3F](https://r3f.docs.pmnd.rs/getting-started/introductio
 
 You're a BumbleBee, just trying to survive.
 
+Avoid trees and bushes. Collect flowers and diamonds.
+
 ### Keys
 
 - ← or A: steer left
