@@ -2,7 +2,6 @@
  * Collection of small functions to make life easier
  * 
  */
-
 export const Helpers = {
   /**
   * generates a random number

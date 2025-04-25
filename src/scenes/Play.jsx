@@ -21,18 +21,15 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
   const [subscribeKeys, getKeys] = useKeyboardControls();
   const [gameSpeed, setGameSpeed] = useState(0);
   const [isHit, setIsHit] = useState(false);
-  const { player, lives, setLives, toggleMute, mute  } = useGameStore();
-  const musicTrack = new Audio();
-  const [music, setMusic] = useState(new Audio());
-
-  const maxSpeed = 2;
+  const { MAX_SPEED, player, lives, setLives, toggleMute, mute  } = useGameStore();
+  const [music] = useState(new Audio());
 
   const flowerModel = useGLTF('./flowers-tall.glb');
 
   // ref for clearing isHit after certain time period
   const hitTimeoutRef = useRef(null);
 
-  const treePos = () => {
+  const obstaclePos = () => {
     return [
       H.rndArray([-7, 0, 7]),
       0,
@@ -48,8 +45,8 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
     ];
   }
 
-  let trees = useRef(Array(numObstacles).fill().map(() => ({
-    pos: treePos
+  let obstacles = useRef(Array(numObstacles).fill().map(() => ({
+    pos: obstaclePos
   })));
 
   let flowers = useRef(Array(10).fill().map(() => ({
@@ -69,11 +66,11 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
 
   useEffect(() => {
     if (plays > 0) {
-      trees.current.forEach((tree) => {
-        tree.pos = treePos;
+      obstacles.current.forEach((obstacle) => {
+        obstacle.pos = obstaclePos
       });
       flowers.current.forEach((flower) => {
-        flower.pos = flowerPos;
+        flower.pos = [0,20,0]
       });
     }
   }, [plays]);
@@ -130,7 +127,7 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
   }
 
   useFrame((state, delta) => {
-    if (gameSpeed < maxSpeed) {
+    if (gameSpeed < MAX_SPEED) {
       setGameSpeed(gameSpeed => gameSpeed += .75 * delta);
     }
     if (lives < 0 && gameSpeed > 0) {
@@ -144,7 +141,7 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
       <Fog />
       <Ouch player={player} isHit={isHit} />
       <Bumble gameSpeed={gameSpeed} />
-      {trees.current.map((tree, index) => (
+      {obstacles.current.map((obstacle, index) => (
         <Obstacle
           key={index}
           gameSpeed={gameSpeed}

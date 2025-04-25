@@ -1,13 +1,14 @@
 # BumbleBee
 
 [Gamedev.js](https://itch.io/jam/gamedevjs-2025) Jam 2025 Entry
+
 Simple game made with [R3F](https://r3f.docs.pmnd.rs/getting-started/introduction)
 
 ![Screenshot](https://raw.githubusercontent.com/eoinmcg/bumblebee/main/promo/bumblebee.png)
 
 ## How To Play
 
-You're a BumbleBee. Just trying to survive.
+You're a BumbleBee, just trying to survive.
 
 ### Keys
 
@@ -20,7 +21,7 @@ You're a BumbleBee. Just trying to survive.
 
 - [Gamedev.js jam entry](https://eoinmcg.itch.io/bumblebee)
 - [Latest version](https://eoinmcgrath.com/bumblebee)
-- [Post-mortem](https://eoinmcgrath.com/gecko/post-mortem.html)
+- [Post-mortem](https://eoinmcgrath.com/bumblebee/post-mortem.html)
 
 ## Credits
 

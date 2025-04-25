@@ -1,6 +1,14 @@
 import { create } from 'zustand';
 
 export const useGameStore = create((set, get) => ({
+  MAX_X: 50, // determines gamw width
+  MAX_SPEED: 2,
+  DEFAULT_CAMERA: {
+    fov: 45,
+    position: [0, 1, 10],
+    near: 1,
+    far: 500
+  },
   mute: false,
   player: null,
   speed: 0,

@@ -5,7 +5,6 @@ import { useKeyboardControls } from '@react-three/drei';
 import { useGameStore } from '../store';
 import { Helpers as H } from '../helpers/utils';
 import sfx from '../helpers/sfx';
-import { MAX_X } from '../config';
 
 import BeeModel from '../models/BeeModel';
 
@@ -16,7 +15,7 @@ export default function Bumble({ gameSpeed }) {
   const wingR = useRef();
 
   const [subscribeKeys, getKeys] = useKeyboardControls();
-  const { addPlayer, lives } = useGameStore();
+  const { MAX_X, addPlayer, lives } = useGameStore();
   const [isStored, setIsStored] = useState(false);
 
   // state for handling jump

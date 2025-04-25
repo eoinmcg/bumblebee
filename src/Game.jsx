@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { KeyboardControls } from '@react-three/drei';
 
@@ -9,17 +9,30 @@ import About from './scenes/About';
 
 import UI from './components/UI';
 
-import { DEFAULT_CAMERA } from './config';
 import { useGameStore } from './store';
 
 import { Perf } from 'r3f-perf'
 
 export default function Game() {
+
   const [scene, setScene] = useState('loading');
   const [transitioning, setTransitioning] = useState(false);
-  const { setScore, setLives, setLevel, setSpeed, setPlays, plays } = useGameStore();
+  const [debug, setDebug] = useState(false);
+  const { DEFAULT_CAMERA, setScore, setLives, setLevel, setSpeed, setPlays, plays } = useGameStore();
 
-  const DEBUG = window.location.search.includes('debug=true');
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    // add ?debug=true to URL to view perf panel
+    if (params.get('debug') === 'true') {
+      setDebug(true);
+    }
+
+    // handy for testing out scenes in dev
+    if (params.get('start')) {
+      setScene(params.get('start'));
+    }
+  }, []);
 
   const changeScene = (newScene) => {
     setScore(0);
@@ -51,7 +64,7 @@ export default function Game() {
           camera={DEFAULT_CAMERA}
           style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
         >
-        {DEBUG && <Perf position="bottom-right" /> }
+        {debug && <Perf position="bottom-right" /> }
           {scene === "loading" && <Loading changeScene={changeScene} />}
           {scene === "intro" && <Intro changeScene={changeScene} />}
           {scene === "splash" && <Splash changeScene={changeScene} />}

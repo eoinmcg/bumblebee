@@ -1,15 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 
+import { useGameStore } from '../store';
 import { detectCollision } from '../helpers/collision';
 import { Helpers as H } from '../helpers/utils';
 import sfx from '../helpers/sfx';
-import { MAX_X } from '../config';
 
 export default function Obstacle({pos, scale, gameSpeed, player, reportCrash}) {
   const body = useRef();
   scale = scale || 4;
   const [hit, setHit] = useState(false);
+  const { MAX_X } = useGameStore();
 
   useEffect(() => {
     resetPos(true);
@@ -22,7 +23,6 @@ export default function Obstacle({pos, scale, gameSpeed, player, reportCrash}) {
     } else {
       body.current.position.z = H.rnd(-200, -400);
     }
-    // body.current.position.y = -12;
     body.current.position.y = H.rnd(-12,-2);
     setHit(false);
   }

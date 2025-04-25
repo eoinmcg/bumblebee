@@ -6,7 +6,6 @@ import { useGameStore } from '../store';
 import { detectCollision } from '../helpers/collision';
 import { Helpers as H } from '../helpers/utils';
 import sfx from '../helpers/sfx';
-import { MAX_X } from '../config';
 
 export default function Flower({pos, scale, gameSpeed, player, model}) {
   const body = useRef();
@@ -14,7 +13,7 @@ export default function Flower({pos, scale, gameSpeed, player, model}) {
   scale = scale || 4;
   const [collected, setCollected] = useState(false);
   const [color, setColor] = useState('red');
-  const { score, setScore } = useGameStore();
+  const { MAX_X, score, setScore } = useGameStore();
 
   // Particle system references
   const particles = useRef([]);
