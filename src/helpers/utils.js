@@ -10,7 +10,7 @@ export const Helpers = {
   * @param {number} max
   * @returns {number} - True if objects are colliding, false otherwise
   */
-  rnd: function (min, max) {
+  rnd: function (min = 0, max  = 1) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   },
 

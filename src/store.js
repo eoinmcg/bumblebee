@@ -9,6 +9,12 @@ export const useGameStore = create((set, get) => ({
     near: 1,
     far: 500
   },
+  COLS: {
+    red: 0xff0000,
+    green: 0x00ff00,
+    brown: 0x4d2926,
+    stone: 0x9D9D9D,
+  },
   mute: false,
   player: null,
   speed: 0,

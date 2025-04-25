@@ -9,21 +9,20 @@ import sfx from '../helpers/sfx';
 export default function Obstacle({pos, scale, gameSpeed, player, reportCrash}) {
   const body = useRef();
   scale = scale || 4;
-  const [hit, setHit] = useState(false);
-  const { MAX_X } = useGameStore();
+  const { MAX_X, COLS } = useGameStore();
+  const [hit, setHit] = useState();
+  const [color, setColor] = useState(COLS.green);
 
   useEffect(() => {
-    resetPos(true);
+    resetPos();
   }, [])
 
-  const resetPos = (init = false) => {
+  const resetPos = () => {
     body.current.position.x = H.rnd(-MAX_X, MAX_X);
-    if (init) {
-      body.current.position.z = H.rnd(-100, -300);
-    } else {
-      body.current.position.z = H.rnd(-200, -400);
-    }
-    body.current.position.y = H.rnd(-12,-2);
+    body.current.position.z = H.rnd(-200, -400);
+    const y = H.rndArray([-12,-2]);
+    body.current.position.y = y;
+    setColor(y === -2 ? COLS.green : COLS.stone);
     setHit(false);
   }
 
@@ -55,7 +54,7 @@ export default function Obstacle({pos, scale, gameSpeed, player, reportCrash}) {
       <group position={pos} ref={body} scale={scale}>
         <mesh position={[0,2,0]} castShadow receiveShadow>
           <boxGeometry args={[1.25,2.5,1.25]} />
-          <meshStandardMaterial opacity={0.1} color={hit? 0xff0000 : 0x00ff00} />
+          <meshStandardMaterial opacity={0.1} color={hit? 0xff0000 : color} />
         </mesh>
         <mesh castShadow receiveShadow>
           <boxGeometry args={[1,6,1]} />

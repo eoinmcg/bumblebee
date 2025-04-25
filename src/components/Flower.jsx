@@ -52,19 +52,15 @@ export default function Flower({pos, scale, gameSpeed, player, model}) {
       }
     }
 
-    resetPos(true);
+    resetPos();
   }, [model]);
 
-  const resetPos = (init = false) => {
+  const resetPos = () => {
     if (!body.current) return;
 
     body.current.position.y = -1.5;
     body.current.position.x = H.rnd(-MAX_X, MAX_X);
-    if (init) {
-      body.current.position.z = H.rnd(-100, -300);
-    } else {
-      body.current.position.z = H.rnd(-200, -400);
-    }
+    body.current.position.z = H.rnd(-200, -400);
     setCollected(false);
     setColor(H.rndArray(['red', 'yellow', 'orange']));
   };
