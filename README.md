@@ -5,6 +5,9 @@
 Simple game made with [R3F](https://r3f.docs.pmnd.rs/getting-started/introduction)
 
 ![Screenshot](https://raw.githubusercontent.com/eoinmcg/bumblebee/main/promo/bumblebee.png)
+![Screenshot](https://raw.githubusercontent.com/eoinmcg/bumblebee/main/promo/hit.png)
+![Screenshot](https://raw.githubusercontent.com/eoinmcg/bumblebee/main/promo/play.png)
+![Screenshot](https://raw.githubusercontent.com/eoinmcg/bumblebee/main/promo/splash.png)
 
 ## How To Play
 
