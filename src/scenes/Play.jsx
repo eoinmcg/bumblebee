@@ -1,8 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import {
-  KeyboardControls, useKeyboardControls,
-  useGLTF } from '@react-three/drei';
+import { useKeyboardControls, useGLTF } from '@react-three/drei';
 
 import { useGameStore } from '../store';
 
@@ -29,52 +27,42 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
   // ref for clearing isHit after certain time period
   const hitTimeoutRef = useRef(null);
 
-  const obstaclePos = () => {
-    return [
-      H.rndArray([-7, 0, 7]),
-      0,
-      -100 - Math.random() * 200
-    ];
-  }
-
-  const flowerPos = () => {
-    return [
-      H.rndArray([-7, 0, 7]),
-      0,
-      -100 - Math.random() * 200
-    ];
-  }
-
+  // obstacle and flower will register this as
+  // offscreen and respawn at a random location
+  const offScreenPos = [0,20,0];
   let obstacles = useRef(Array(numObstacles).fill().map(() => ({
-    pos: obstaclePos
+    pos: offScreenPos
   })));
 
   let flowers = useRef(Array(10).fill().map(() => ({
-    pos: flowerPos
+    pos: offScreenPos
   })));
 
+  // handle muting sfx & music
   useEffect(() => {
     if (mute) return;
-      music.src = 'main-track.ogg';
-      music.volume = .2;
-      music.play();
+    music.src = 'main-track.ogg';
+    music.volume = .2;
+    music.play();
     return () => {
       music.pause();
       music.currentTime = 0;
     };
   }, [plays, mute]);
 
+  // handle restarting game
   useEffect(() => {
     if (plays > 0) {
       obstacles.current.forEach((obstacle) => {
-        obstacle.pos = obstaclePos
+        obstacle.pos = offScreenPos
       });
       flowers.current.forEach((flower) => {
-        flower.pos = [0,20,0]
+        flower.pos = offScreenPos
       });
     }
   }, [plays]);
 
+  // gameover event
   useEffect(() => {
     if (lives < 0) {
       music.pause();
@@ -98,7 +86,6 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
         }
       }
     );
-    // Clean up the subscription
     return () => unsubscribe();
   }, [subscribeKeys]);
 
@@ -109,7 +96,7 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
       hitTimeoutRef.current = window.setTimeout(() => {
         setIsHit(false);
       }, 1000);
-      
+
       return () => {
         if (hitTimeoutRef.current) {
           clearTimeout(hitTimeoutRef.current);
@@ -161,4 +148,3 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
     </>
   );
 }
-
