@@ -1,3 +1,6 @@
+// sounds generated with this great wee tool:
+// https://killedbyapixel.github.io/ZzFX/
+
 import zzfx from "../lib/zzfx";;
 
 import { getGameState } from "../store";
@@ -9,12 +12,14 @@ const data = {
   hurt: [1.1,,448,.08,.21,.24,1,3.5,1,-2,,,.08,,,,,.65,.12,.19],
 };
 
-window.data = data;
-
+/**
+* plays sfx using zzfx
+* checks muted flag in gameState
+* 
+* @param {string} key name in corresponding data object
+*/
 const sfx = (name) => {
-
   const { mute } = getGameState();
-  
   if (mute || !name in data) return;
   zzfx(...data[name]);
 }

@@ -65,4 +65,3 @@ export default function Obstacle({pos, scale, gameSpeed, player, reportCrash}) {
     </>
   );
 }
-

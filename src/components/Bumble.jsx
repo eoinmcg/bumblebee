@@ -128,4 +128,3 @@ export default function Bumble({ gameSpeed }) {
     </group>
   );
 }
-

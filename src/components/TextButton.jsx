@@ -12,7 +12,6 @@ export default function TextButton({pos, text, scale, col, hoverCol, callback}) 
   const [color, setColor] = useState(col);
 
   return (
-
     <>
       <Text3D
         scale={[scale,scale,scale]}

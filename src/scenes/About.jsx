@@ -12,7 +12,6 @@ export default function About({changeScene}) {
     changeScene(scene)
   }
 
-
   return (
     <>
       <Lights color="#222" />
@@ -29,9 +28,11 @@ export default function About({changeScene}) {
         <div className="about">
         <p>Built by <br /><a target="blank" href="https://eoinmcgrath.com">eoinmcg</a></p>
         <p>Music by <a target="blank" href="https://pixabay.com/users/melodyayresgriffiths-27269767/">melodyayresgriffiths</a></p>
-          <p>
-            <a href="">Source code</a>
-          </p>
+        <p>SFX generated with <a href="https://killedbyapixel.github.io/ZzFX/">ZzFX</a></p>
+        <p>3D models by <a target="blank" href="https://kenney.nl/assets/platformer-kit">Kenney</a></p>
+        <p>
+          <a target="blank" href="https://github.com/eoinmcg/bumblebee/">Source code</a>
+        </p>
         </div>
       </Html>
 
