@@ -110,10 +110,6 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
     setIsHit(true);
     sfx('hurt')
     setLives(lives - 1);
-    <Confetti
-      width={width}
-      height={height}
-    />
   }
 
   useFrame((state, delta) => {
@@ -130,7 +126,7 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
       <Lights />
       <Fog />
       <Ouch player={player} isHit={isHit} />
-      <Bumble gameSpeed={gameSpeed} />
+      <Bumble gameSpeed={gameSpeed} isHit={isHit} />
       {obstacles.current.map((obstacle, index) => (
         <Obstacle
           key={index}

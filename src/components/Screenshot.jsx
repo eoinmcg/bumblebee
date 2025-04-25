@@ -1,10 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Canvas, useThree } from '@react-three/fiber';
+import React, { useEffect } from 'react';
+import { useThree } from '@react-three/fiber';
 
+/**
+ * Takes screenshot (gl canvas only)
+ *
+ * Press [p] to activate
+ * 
+ */
 export default function Screenshot() {
-
-  const { gl, camera, viewport } = useThree();
-  const groupRef = useRef(null);
+  const { gl } = useThree();
 
   useEffect(() => {
     const captureKey = (e) => {
@@ -19,26 +23,13 @@ export default function Screenshot() {
     }
   }, []);
 
-  useEffect(() => {
-    const groupRefCopy = groupRef.current;
-    camera.add(groupRefCopy);
-    return () => {
-      camera.remove(groupRefCopy);
-    };
-  }, [camera, groupRef.current]);
-
-
-
   const saveScreenshot = () => {
     const dataUrl = gl.domElement.toDataURL('image/png');
-
     const link = document.createElement('a');
-    link.download = 'r3f-screenshot.png';
+    link.download = `screenshot-${new Date().getMilliseconds()}.png`;
     link.href = dataUrl;
     link.click();
   };
 
-
   return <></>
-
 }

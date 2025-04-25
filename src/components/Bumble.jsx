@@ -8,7 +8,7 @@ import sfx from '../helpers/sfx';
 
 import BeeModel from '../models/BeeModel';
 
-export default function Bumble({ gameSpeed }) {
+export default function Bumble({ gameSpeed, isHit }) {
 
   const bumble = useRef();
   const wingL = useRef();
@@ -63,7 +63,8 @@ export default function Bumble({ gameSpeed }) {
     }
 
     const { left, right, up, space } = getKeys();
-    const moveX = bodyRot.z * delta * 100;
+    let moveX = bodyRot.z * delta * 100;
+    if (isHit) { moveX *= .2; }
 
     if (left && bodyPos.x !== -MAX_X) { bodyPos.x += (moveX); bodyRot.z -= .05; bodyRot.y += 0.05; }
     else if (right && bodyPos.x !== MAX_X) { bodyPos.x += (moveX); bodyRot.z += .05; bodyRot.y -= 0.05; }
