@@ -89,7 +89,7 @@ export default function Splash({changeScene}) {
         col="dodgerblue"
         hoverCol="dodgerblue"
         pos={[-1.5,-4,0]}
-        text={`HISCORE: ${hiScore}`}
+        text={`HISCORE: ${~~hiScore}`}
       />
 
       <mesh scale={10} position={[1.5,-1.5,-3]}>
