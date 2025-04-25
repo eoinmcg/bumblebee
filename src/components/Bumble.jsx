@@ -54,7 +54,7 @@ export default function Bumble({ gameSpeed }) {
       return;
     }
 
-    if (gameSpeed < 0.2) {
+    if (gameSpeed < 0.001) {
       bodyRot.x = .2;
       bodyRot.z = -.5;
       bodyRot.y -= Math.PI;
@@ -64,10 +64,6 @@ export default function Bumble({ gameSpeed }) {
 
     const { left, right, up, space } = getKeys();
     const moveX = bodyRot.z * delta * 100;
-
-    if (space) {
-      console.log('space');
-    }
 
     if (left && bodyPos.x !== -MAX_X) { bodyPos.x += (moveX); bodyRot.z -= .05; bodyRot.y += 0.05; }
     else if (right && bodyPos.x !== MAX_X) { bodyPos.x += (moveX); bodyRot.z += .05; bodyRot.y -= 0.05; }

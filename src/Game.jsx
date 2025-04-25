@@ -18,11 +18,10 @@ export default function Game() {
   const [scene, setScene] = useState('loading');
   const [transitioning, setTransitioning] = useState(false);
   const [debug, setDebug] = useState(false);
-  const { DEFAULT_CAMERA, setScore, setLives, setLevel, setSpeed, setPlays, plays } = useGameStore();
+  const { DEFAULT_CAMERA, setScore, setLives, setSpeed, setPlays, plays } = useGameStore();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-
     // add ?debug=true to URL to view perf panel
     if (params.get('debug') === 'true') {
       setDebug(true);
@@ -37,7 +36,6 @@ export default function Game() {
   const changeScene = (newScene) => {
     setScore(0);
     setLives(2);
-    setLevel(0);
     setSpeed(0);
     setPlays(plays + 1);
 
@@ -53,6 +51,8 @@ export default function Game() {
       <KeyboardControls map={[
         { name: 'esc', keys: [ 'Esc' ] },
         { name: 'space', keys: [ 'Space' ] },
+        { name: 'photo', keys: [ 'KeyP' ] },
+        { name: 'vid', keys: [ 'KeyV' ] },
         { name: 'mute', keys: [ 'KeyM' ] },
         { name: 'up', keys: [ 'ArrowUp', 'KeyW' ] },
         { name: 'down', keys: [ 'ArrowDown', 'KeyS' ] },
@@ -60,8 +60,9 @@ export default function Game() {
         { name: 'right', keys: [ 'ArrowRight', 'KeyD' ] },
       ]}>
         <Canvas
-          shadows
+          gl={{ preserveDrawingBuffer: true }}
           camera={DEFAULT_CAMERA}
+          shadows
           style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
         >
         {debug && <Perf position="bottom-right" /> }

@@ -11,6 +11,7 @@ import Fog from '../components/Fog';
 import Bumble from '../components/Bumble';
 import Obstacle from '../components/Obstacle';
 import Flower from '../components/Flower';
+import Screenshot from '../components/Screenshot';
 
 import sfx from '../helpers/sfx';
 
@@ -21,8 +22,6 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
   const [isHit, setIsHit] = useState(false);
   const { MAX_SPEED, player, lives, setLives, toggleMute, mute  } = useGameStore();
   const [music] = useState(new Audio());
-
-  const flowerModel = useGLTF('./flowers-tall.glb');
 
   // ref for clearing isHit after certain time period
   const hitTimeoutRef = useRef(null);
@@ -107,15 +106,19 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
   }, [isHit]);
 
   const playerCrashed = () => {
-    setGameSpeed(-.1);
+    setGameSpeed(prev => 0.5);
     setIsHit(true);
     sfx('hurt')
     setLives(lives - 1);
+    <Confetti
+      width={width}
+      height={height}
+    />
   }
 
   useFrame((state, delta) => {
     if (gameSpeed < MAX_SPEED) {
-      setGameSpeed(gameSpeed => gameSpeed += .75 * delta);
+      setGameSpeed(gameSpeed => gameSpeed += .15 * delta);
     }
     if (lives < 0 && gameSpeed > 0) {
       setGameSpeed(0);
@@ -138,13 +141,13 @@ export default function Play({plays, numObstacles, speed, changeScene}) {
       ))}
       {flowers.current.map((flower, index) => (
         <Flower
-          model={flowerModel }
           key={index}
           gameSpeed={gameSpeed}
           player={player}
         />
       ))}
       <Ground />
+      <Screenshot />
     </>
   );
 }

@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useWindowSize } from 'react-use'
+import Confetti from 'react-confetti'
 import { useGameStore } from '../store';
 
 export default function UI({changeScene}) {
-  const { score, lives, mute, setMute } = useGameStore();
+  const { score, hiScore, setHiScore, lives, mute, setMute } = useGameStore();
 
   const [showUI, setShowUI] = useState(false);
+  const [newHiScore, setNewHiScore] = useState(false);
   const [showGameOver, setShowGameOver] = useState(false);
+  const { width, height } = useWindowSize()
 
   const handleToggleMute = () => {
     setMute(!mute);
@@ -16,10 +20,15 @@ export default function UI({changeScene}) {
     if (lives === 2) {
       setShowUI(true);
       setShowGameOver(false);
+      setNewHiScore(false);
     }
 
     if (lives < 0) {
       setShowGameOver(true);
+      if (score > hiScore) {
+        setHiScore(score);
+        setNewHiScore(score);
+      }
     }
   }, [lives]);
 
@@ -39,10 +48,15 @@ export default function UI({changeScene}) {
         <div className={showGameOver ? 'gameover active' : 'gameover'} onClick={(e) => {
           changeScene('play');
         }}>
-          <h4>GAMEOVER</h4>
+          <h4>{newHiScore ? 'NEW HISCORE!' : 'GAMEOVER'}</h4>
           <p>replay?</p>
         </div>
-      
+        {newHiScore && (
+          <Confetti
+            width={width}
+            height={height}
+          />
+        )}
     </>
   );
 }

@@ -19,10 +19,10 @@ export default function Obstacle({pos, scale, gameSpeed, player, reportCrash}) {
 
   const resetPos = () => {
     body.current.position.x = H.rnd(-MAX_X, MAX_X);
-    body.current.position.z = H.rnd(-200, -400);
+    body.current.position.z = H.rnd(-20, -40, 'even') * 10;
     const y = H.rndArray([-12,-2]);
     body.current.position.y = y;
-    setColor(y === -2 ? COLS.green : COLS.stone);
+    setColor(y === -2 ? COLS.green : COLS.green);
     setHit(false);
   }
 

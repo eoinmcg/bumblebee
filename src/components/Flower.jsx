@@ -1,19 +1,24 @@
 import React, { useRef, useState, useEffect } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
+import { useGLTF } from '@react-three/drei';
 
 import { useGameStore } from '../store';
 import { detectCollision } from '../helpers/collision';
 import { Helpers as H } from '../helpers/utils';
 import sfx from '../helpers/sfx';
 
-export default function Flower({pos, scale, gameSpeed, player, model}) {
-  const body = useRef();
-  const flowerModel = useRef();
+export default function Flower({pos, scale, gameSpeed, player}) {
   scale = scale || 4;
+  const body = useRef();
+  const models = {
+    flower: useGLTF('./flowers-tall.glb'),
+    jewel: useGLTF('./jewel.glb'),
+  }
+  const [model, setModel] = useState();
   const [collected, setCollected] = useState(false);
-  const [color, setColor] = useState('red');
   const { MAX_X, score, setScore } = useGameStore();
+
 
   // Particle system references
   const particles = useRef([]);
@@ -26,9 +31,14 @@ export default function Flower({pos, scale, gameSpeed, player, model}) {
   // Initialize particles
   useEffect(() => {
   // Create model clone only once during initialization
-    if (!flowerModel.current) {
-      flowerModel.current = model.scene.clone();
-    }
+    // if (!activeModel.current) {
+    //   flowerModel.current = models.flower.scene.clone();
+    // }
+    // if (!jewelModel.current) {
+    //   jewelModel.current = models.jewel.scene.clone();
+    // }
+
+
     // Create 30 particle meshes
     if (particlesGroup.current) {
       for (let i = 0; i < 30; i++) {
@@ -53,16 +63,21 @@ export default function Flower({pos, scale, gameSpeed, player, model}) {
     }
 
     resetPos();
-  }, [model]);
+  }, []);
 
   const resetPos = () => {
     if (!body.current) return;
 
-    body.current.position.y = -1.5;
+    const y = score > 50 ? H.rndArray([-1.5, 3]) : -1.5;
+    body.current.position.y = y;
+    setModel(y === 3
+      ? models.jewel.scene.clone()
+      : models.flower.scene.clone()
+    );
+
     body.current.position.x = H.rnd(-MAX_X, MAX_X);
-    body.current.position.z = H.rnd(-200, -400);
+    body.current.position.z = H.rnd(-20, -40, 'odd') * 10;
     setCollected(false);
-    setColor(H.rndArray(['red', 'yellow', 'orange']));
   };
 
   // Function to emit particles at a position
@@ -115,6 +130,10 @@ export default function Flower({pos, scale, gameSpeed, player, model}) {
     // Apply movement
     body.current.position.z += gameSpeed * delta;
 
+    if(model.name === 'jewel') {
+      body.current.rotation.y += delta;
+    }
+
     if (!collected) {
       // Check for player collision
       const isColliding = detectCollision(body.current, player.current);
@@ -127,7 +146,8 @@ export default function Flower({pos, scale, gameSpeed, player, model}) {
         }
 
         setCollected(true);
-        setScore(score + 5);
+        console.log(model.name);
+        setScore(score + (model.name === 'jewel' ? 10 : 5));
         resetPos();
       }
 
@@ -175,9 +195,9 @@ export default function Flower({pos, scale, gameSpeed, player, model}) {
   return (
     <>
       <group position={pos} ref={body} scale={scale}>
-        {flowerModel.current && (
+        {model && (
           <primitive
-            object={flowerModel.current}
+            object={model}
             castShadow
             receiveShadow
           />

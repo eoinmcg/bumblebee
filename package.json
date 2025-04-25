@@ -22,9 +22,13 @@
     "@react-three/fiber": "^9.1.0",
     "@react-three/postprocessing": "^3.0.4",
     "@react-three/rapier": "2.0",
+    "install": "^0.13.0",
     "leva": "^0.10.0",
+    "npm": "^11.3.0",
     "react": "19.0",
+    "react-confetti": "^6.4.0",
     "react-dom": "19.0",
+    "react-use": "^17.6.0",
     "three": "^0.174.0",
     "zustand": "5.0"
   }

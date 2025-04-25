@@ -1,13 +1,14 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { useFrame, useLoader } from '@react-three/fiber';
-import { Text, Center, Text3D, Float } from '@react-three/drei';
+import React, { useRef, useState } from 'react';
+import { useFrame, useLoader, useThree } from '@react-three/fiber';
+import { Center, Text3D, Float } from '@react-three/drei';
 import * as THREE from 'three';
 
 import Lights from '../components/Lights';
 import TextButton from '../components/TextButton';
+import Screenshot from '../components/Screenshot';
 
 import BeeModel from '../models/BeeModel';
-
+import { useGameStore } from '../store';
 
 export default function Splash({changeScene}) {
 
@@ -19,6 +20,8 @@ export default function Splash({changeScene}) {
   const wingL = useRef();
   const wingR = useRef();
 
+
+  const { hiScore } = useGameStore();
 
   const handleClick = (scene = 'play') => {
     changeScene(scene)
@@ -34,7 +37,6 @@ export default function Splash({changeScene}) {
     wingAngle += (wingSpeed * wingDir) * delta;
     wingL.current.rotation.y = wingAngle;
     wingR.current.rotation.y = wingAngle;
-
 
   });
 
@@ -83,6 +85,13 @@ export default function Splash({changeScene}) {
         }}
       />
 
+      <TextButton
+        col="dodgerblue"
+        hoverCol="dodgerblue"
+        pos={[-1.5,-4,0]}
+        text={`HISCORE: ${hiScore}`}
+      />
+
       <mesh scale={10} position={[1.5,-1.5,-3]}>
           material-toneMapped={false}
         <planeGeometry />
@@ -93,7 +102,7 @@ export default function Splash({changeScene}) {
           side={THREE.DoubleSide}
         />
       </mesh>
- 
+      <Screenshot />
     </>
   );
 }
